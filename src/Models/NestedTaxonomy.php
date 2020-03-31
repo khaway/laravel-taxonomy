@@ -4,7 +4,6 @@ namespace Scrapify\LaravelTaxonomy\Models;
 
 use Kalnoy\Nestedset\NodeTrait;
 use Scrapify\LaravelTaxonomy\Models\Observers\NestedTaxonomyObserver;
-use Scrapify\LaravelTaxonomy\Query\NestedQueryBuilder as QueryBuilder;
 
 /**
  * Class NestedTaxonomy
@@ -23,15 +22,5 @@ class NestedTaxonomy extends Taxonomy
         parent::boot();
 
         static::observe(NestedTaxonomyObserver::class);
-    }
-
-    /**
-     * Create new eloquent query builder, using nested set.
-     *
-     * @return QueryBuilder
-     */
-    public function newEloquentBuilder($query)
-    {
-        return new QueryBuilder($query);
     }
 }

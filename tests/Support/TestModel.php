@@ -11,6 +11,7 @@ class TestModel extends Model
 
     protected $table = 'test_models';
     protected $guarded = [];
+    protected $fillable = ['name'];
     public $timestamps = false;
 
     /**
@@ -18,6 +19,6 @@ class TestModel extends Model
      */
     public function products()
     {
-        return $this->taxonomyMorphToMany(TestProductTaxonomy::class);
+        return $this->morphToManyTaxonomies(TestProductCategory::class);
     }
 }

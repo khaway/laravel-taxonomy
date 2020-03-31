@@ -3,22 +3,9 @@
 namespace Scrapify\LaravelTaxonomy\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Scrapify\LaravelTaxonomy\Query\QueryBuilder;
 use Scrapify\LaravelTaxonomy\Models\Scopes\TaxonomyScope;
 use Scrapify\LaravelTaxonomy\Traits\HasTermFillableAttributes;
 use Scrapify\LaravelTaxonomy\Models\Observers\TaxonomyObserver;
-
-//$nodes = Category::get()->toTree();
-//
-//$traverse = function ($categories, $prefix = '-') use (&$traverse) {
-//    foreach ($categories as $category) {
-//        echo PHP_EOL.$prefix.' '.$category->name;
-//
-//        $traverse($category->children, $prefix.'-');
-//    }
-//};
-//
-//$traverse($nodes);
 
 /**
  * Class Taxonomy
@@ -97,13 +84,13 @@ class Taxonomy extends Model
     }
 
     /**
-     * @param $modelClass
+     * @param $related
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    public function entities($modelClass)
+    public function entities($related)
     {
         return $this->morphedByMany(
-            $modelClass,
+            $related,
             config('taxonomy.morph_name'),
             config('taxonomy.tables.term_relationships', 'term_relationships'),
             'taxonomy_id'
@@ -111,13 +98,16 @@ class Taxonomy extends Model
     }
 
     /**
-     * Create new extended eloquent builder.
-     *
-     * @return QueryBuilder
+     * @param $related
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
-    public function newEloquentBuilder($query)
+    public function entity($related)
     {
-        return new QueryBuilder($query);
+        return $this->morphOne(
+            $related,
+            config('taxonomy.morph_name'),
+            config('taxonomy.tables.term_relationships', 'term_relationships')
+        );
     }
 
     /**

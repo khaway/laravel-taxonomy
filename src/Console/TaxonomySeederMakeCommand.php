@@ -6,6 +6,11 @@ use Illuminate\Support\Composer;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Console\GeneratorCommand;
 
+/**
+ * Class TaxonomySeederMakeCommand
+ *
+ * @package Scrapify\LaravelTaxonomy\Console
+ */
 class TaxonomySeederMakeCommand extends GeneratorCommand
 {
     /**

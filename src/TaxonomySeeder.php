@@ -5,6 +5,11 @@ namespace Scrapify\LaravelTaxonomy;
 use RuntimeException;
 use Illuminate\Database\Seeder;
 
+/**
+ * Class TaxonomySeeder
+ *
+ * @package Scrapify\LaravelTaxonomy
+ */
 class TaxonomySeeder extends Seeder
 {
     /**

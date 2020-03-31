@@ -2,9 +2,9 @@
 
 namespace Scrapify\LaravelTaxonomy\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Scrapify\LaravelTaxonomy\Models\Observers\TermObserver;
-use Scrapify\LaravelTaxonomy\Traits\HasBaseTaxonomyRelations;
 
 /**
  * Class Term
@@ -13,8 +13,6 @@ use Scrapify\LaravelTaxonomy\Traits\HasBaseTaxonomyRelations;
  */
 class Term extends Model
 {
-    use HasBaseTaxonomyRelations;
-
     /**
      * @var string
      */
@@ -55,19 +53,17 @@ class Term extends Model
      * @param  string  $value
      * @return void
      */
-    // public function setSlugAttribute($value)
-    // {
-    //     $this->attributes['slug'] = Str::slug($value);
-    // }
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = Str::slug($value);
+    }
 
     /**
-     * Taxonomy relation helper.
-     *
-     * @param string $modelClass
+     * @param null $related
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    protected function taxonomyRelation($modelClass)
+    public function taxonomies($related = null)
     {
-        return $this->hasMany($modelClass, $this->getKeyName());
+        return $this->hasMany($related ?? Taxonomy::class);
     }
 }

@@ -2,10 +2,9 @@
 
 namespace Scrapify\LaravelTaxonomy\Tests\Feature;
 
-use Scrapify\LaravelTaxonomy\Models\Term;
 use Scrapify\LaravelTaxonomy\Tests\TestCase;
 use Scrapify\LaravelTaxonomy\Tests\Support\TestModel;
-use Scrapify\LaravelTaxonomy\Tests\Support\TestProductTaxonomy;
+use Scrapify\LaravelTaxonomy\Tests\Support\TestProductCategory;
 
 class HasTaxonomiesTest extends TestCase
 {
@@ -15,6 +14,6 @@ class HasTaxonomiesTest extends TestCase
             'name' => 'sure'
         ]);
 
-        TestProductTaxonomy::first()->entities(TestModel::class)->get();
+        TestProductCategory::first()->entities(TestModel::class)->get();
     }
 }

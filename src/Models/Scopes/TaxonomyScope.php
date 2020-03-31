@@ -2,10 +2,15 @@
 
 namespace Scrapify\LaravelTaxonomy\Models\Scopes;
 
-use Illuminate\Database\Eloquent\Scope;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\{
+    Scope, Model, Builder
+};
 
+/**
+ * Class TaxonomyScope
+ *
+ * @package Scrapify\LaravelTaxonomy\Models\Scopes
+ */
 class TaxonomyScope implements Scope
 {
     /**

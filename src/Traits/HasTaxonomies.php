@@ -3,45 +3,24 @@
 namespace Scrapify\LaravelTaxonomy\Traits;
 
 use Ankurk91\Eloquent\MorphToOne;
-use Scrapify\LaravelTaxonomy\Models\TermRelationship;
 
+/**
+ * Trait HasTaxonomies
+ *
+ * @package Scrapify\LaravelTaxonomy\Traits
+ */
 trait HasTaxonomies
 {
-    use HasBaseTaxonomyRelations, MorphToOne;
+    use MorphToOne;
 
     /**
-     * Boot the metable trait on the model.
-     *
-     * @return void
-     */
-    public static function bootHasTaxonomies(): void
-    {
-        //
-    }
-
-    /**
-     * @param $modelClass
+     * @param $related
      * @return \Ankurk91\Eloquent\Relations\MorphToOne
      */
-    protected function taxonomyMorphToOne($modelClass)
+    public function morphToOneTaxonomy($related)
     {
         return $this->morphToOne(
-            $modelClass,
-            'object',
-            config('taxonomy.tables.term_relationships', 'term_relationships'),
-            null,
-            'term_taxonomy_id'
-        );
-    }
-
-    /**
-     * @param $modelClass
-     * @return
-     */
-    protected function taxonomyMorphToMany($modelClass)
-    {
-        return $this->morphToMany(
-            $modelClass,
+            $related,
             config('taxonomy.morph_name'),
             config('taxonomy.tables.term_relationships', 'term_relationships'),
             null,
@@ -49,29 +28,19 @@ trait HasTaxonomies
         );
     }
 
-
     /**
-     * Object taxonomy relation helper.
-     *
-     * @param string $modelClass
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @param $related
+     * @return mixed
      */
-    protected function taxonomyRelation($modelClass)
+    public function morphToManyTaxonomies($related)
     {
         return $this->morphToMany(
-            $modelClass,
-            'object',
+            $related,
+            config('taxonomy.morph_name'),
             config('taxonomy.tables.term_relationships', 'term_relationships'),
             null,
-            'term_taxonomy_id'
+            'taxonomy_id'
         );
-
-        // return $this->belongsToMany(
-        //     $modelClass,
-        //     config('taxonomy.tables.term_relationships', 'term_relationships'),
-        //     'object_id',
-        //     'term_taxonomy_id'
-        // )->using(TermRelationship::class);
     }
 
     /**
