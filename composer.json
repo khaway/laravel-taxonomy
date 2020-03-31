@@ -1,5 +1,5 @@
 {
-  "name": "scrapify/laravel-taxonomy",
+  "name": "khaway/laravel-taxonomy",
   "require": {
     "php": "^7.2",
     "kalnoy/nestedset": "^5.0",
