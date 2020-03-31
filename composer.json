@@ -1,0 +1,32 @@
+{
+  "name": "scrapify/laravel-taxonomy",
+  "require": {
+    "php": "^7.2",
+    "kalnoy/nestedset": "^5.0",
+    "ankurk91/laravel-eloquent-relationships": "^1.1"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^3.8|^4.0",
+    "phpunit/phpunit": "^9",
+    "spatie/phpunit-watcher": "^1.22"
+  },
+  "autoload": {
+    "psr-4": {
+      "Scrapify\\LaravelTaxonomy\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Scrapify\\LaravelTaxonomy\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Scrapify\\LaravelTaxonomy\\TaxonomyServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

@@ -1,0 +1,6 @@
+hideManual: true
+watch:
+  directories:
+    - src
+    - tests
+    - migrations

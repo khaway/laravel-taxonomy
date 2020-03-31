@@ -1,0 +1,18 @@
+<?php
+
+use Scrapify\LaravelTaxonomy\TaxonomySeeder;
+
+class DummyClass extends TaxonomySeeder
+{
+    /**
+     * Get taxonomies to seed.
+     *
+     * @return array
+     */
+    public function taxonomies()
+    {
+        return [
+        	//
+        ];
+    }
+}
