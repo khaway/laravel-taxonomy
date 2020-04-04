@@ -2,21 +2,14 @@
 
 namespace Scrapify\LaravelTaxonomy\Tests\Support;
 
-use Scrapify\LaravelTaxonomy\Models\NestedTaxonomy;
-
 /**
  * Class TestServiceType
  *
  * @package Scrapify\LaravelTaxonomy\Tests\Support
  */
-class TestServiceType extends NestedTaxonomy
+class TestServiceType extends TestNestedTaxonomy
 {
-    /**
-     * @var array
-     */
-    public $attributes = [
-        'taxonomy' => 'service_type'
-    ];
+    public static $singleTableType = 'service_type';
 
     /**
      *

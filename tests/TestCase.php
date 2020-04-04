@@ -2,10 +2,13 @@
 
 namespace Scrapify\LaravelTaxonomy\Tests;
 
+use Scrapify\LaravelTaxonomy\Taxonomy;
 use Illuminate\Database\Schema\Blueprint;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Scrapify\LaravelTaxonomy\Tests\Support\TestModel;
 use Scrapify\LaravelTaxonomy\TaxonomyServiceProvider;
+use Scrapify\LaravelTaxonomy\Tests\Support\TestServiceType;
+use Scrapify\LaravelTaxonomy\Tests\Support\TestSomeCategory;
+use Scrapify\LaravelTaxonomy\Tests\Support\TestProductCategory;
 
 abstract class TestCase extends Orchestra
 {
@@ -15,8 +18,11 @@ abstract class TestCase extends Orchestra
 
         $this->setUpDatabase($this->app);
 
-        $this->testModel = TestModel::find(1);
-        $this->secondTestModel = TestModel::find(2);
+        Taxonomy::$sub = [
+            TestProductCategory::class,
+            TestSomeCategory::class,
+            TestServiceType::class
+        ];
     }
 
     /**

@@ -2,19 +2,12 @@
 
 namespace Scrapify\LaravelTaxonomy\Tests\Support;
 
-use Scrapify\LaravelTaxonomy\Models\NestedTaxonomy;
-
 /**
  * Class TestSomeCategory
  *
  * @package Scrapify\LaravelTaxonomy\Tests\Support
  */
-class TestSomeCategory extends NestedTaxonomy
+class TestSomeCategory extends TestNestedTaxonomy
 {
-    /**
-     * @var array
-     */
-    public $attributes = [
-        'taxonomy' => 'some_category'
-    ];
+    public static $singleTableType = 'some_category';
 }

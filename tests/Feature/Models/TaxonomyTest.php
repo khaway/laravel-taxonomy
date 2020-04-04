@@ -102,6 +102,8 @@ class TaxonomyTest extends TestCase
             'name' => 'Random'
         ], $parentServiceType);
 
+        // dd(TestProductCategory::all()->pluck('id'));
+
         $this->assertEquals(1, $serviceType->parent(TestProductCategory::class)->count());
         $this->assertEquals(0, $serviceType->parent(TestSomeCategory::class)->count());
     }

@@ -3,9 +3,11 @@
 namespace Scrapify\LaravelTaxonomy\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Scrapify\LaravelTaxonomy\Taxonomy as TaxonomyConfig;
 use Scrapify\LaravelTaxonomy\Models\Scopes\TaxonomyScope;
 use Scrapify\LaravelTaxonomy\Traits\HasTermFillableAttributes;
 use Scrapify\LaravelTaxonomy\Models\Observers\TaxonomyObserver;
+use Nanigans\SingleTableInheritance\SingleTableInheritanceTrait;
 
 /**
  * Class Taxonomy
@@ -14,7 +16,17 @@ use Scrapify\LaravelTaxonomy\Models\Observers\TaxonomyObserver;
  */
 class Taxonomy extends Model
 {
-    use HasTermFillableAttributes;
+    use HasTermFillableAttributes, SingleTableInheritanceTrait;
+
+    /**
+     * @var string
+     */
+    public static $singleTableTypeField = 'taxonomy';
+
+    /**
+     * @var array
+     */
+    public static $singleTableSubclasses = [];
 
     /**
      * @var string
@@ -38,6 +50,9 @@ class Taxonomy extends Model
      */
     public function __construct(array $attributes = [])
     {
+        static::$singleTableTypeField = TaxonomyConfig::$typeField;
+        static::$singleTableSubclasses = TaxonomyConfig::$sub;
+
         parent::__construct($attributes);
 
         $this->setTable(
@@ -108,27 +123,5 @@ class Taxonomy extends Model
             config('taxonomy.morph_name'),
             config('taxonomy.tables.term_relationships', 'term_relationships')
         );
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function newQuery()
-    {
-        $query = parent::newQuery();
-
-        if ($taxonomy = $this->getAttribute('taxonomy')) {
-            $query->whereTaxonomy($taxonomy);
-        }
-
-        return $query;
-    }
-
-    /**
-     * @return array
-     */
-    protected function getScopeAttributes()
-    {
-        return ['taxonomy'];
     }
 }
