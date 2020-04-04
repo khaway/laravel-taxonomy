@@ -24,7 +24,7 @@ class Taxonomy extends Model
     /**
      * @var array
      */
-    protected $fillable = ['term_id', 'taxonomy', 'description'];
+    protected $fillable = ['term_id', 'taxonomy', 'description', 'parent_id'];
 
     /**
      * @var array
@@ -111,16 +111,24 @@ class Taxonomy extends Model
     }
 
     /**
-     * {@inheritdoc}
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function newQuery()
     {
-        $builder = parent::newQuery();
+        $query = parent::newQuery();
 
         if ($taxonomy = $this->getAttribute('taxonomy')) {
-            $builder->whereTaxonomy($taxonomy);
+            $query->whereTaxonomy($taxonomy);
         }
 
-        return $builder;
+        return $query;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getScopeAttributes()
+    {
+        return ['taxonomy'];
     }
 }

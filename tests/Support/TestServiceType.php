@@ -17,4 +17,20 @@ class TestServiceType extends NestedTaxonomy
     public $attributes = [
         'taxonomy' => 'service_type'
     ];
+
+    /**
+     *
+     */
+    public function productCategory()
+    {
+        return $this->children(TestProductCategory::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function someCategory()
+    {
+        return $this->parent(TestSomeCategory::class);
+    }
 }

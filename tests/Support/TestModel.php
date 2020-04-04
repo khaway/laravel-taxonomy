@@ -11,7 +11,7 @@ class TestModel extends Model
 
     protected $table = 'test_models';
     protected $guarded = [];
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'taxonomy_id'];
     public $timestamps = false;
 
     /**

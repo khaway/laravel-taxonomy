@@ -44,16 +44,15 @@ abstract class TestCase extends Orchestra
             'prefix' => '',
         ]);
 
-        $app['db']->connection()->getSchemaBuilder()->create('test_models', function (Blueprint $table) {
+        $app['db']->connection()->getSchemaBuilder()->create('test_models', static function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('taxonomy_id')->nullable();
             $table->softDeletes();
         });
 
-        TestModel::create(['name' => 'test']);
-        TestModel::create(['name' => 'test2']);
-
         include_once __DIR__.'/../migrations/create_taxonomy_tables.php';
+
         (new \CreateTaxonomyTables())->up();
     }
 }
