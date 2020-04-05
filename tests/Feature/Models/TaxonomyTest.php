@@ -2,14 +2,14 @@
 
 namespace Scrapify\LaravelTaxonomy\Tests\Feature\Models;
 
-use Scrapify\LaravelTaxonomy\{Models\NestedTaxonomy,
-    Models\Taxonomy,
+use Scrapify\LaravelTaxonomy\{
     Models\Term,
     Tests\TestCase,
     Tests\Support\TestModel,
     Tests\Support\TestServiceType,
     Tests\Support\TestSomeCategory,
-    Tests\Support\TestProductCategory};
+    Tests\Support\TestProductCategory
+};
 
 /**
  * Class TaxonomyTest
@@ -36,7 +36,7 @@ class TaxonomyTest extends TestCase
         ]);
 
         $newTaxonomy->entities(TestModel::class)->create([
-            'name' => 'Test entity'
+            'name' => 'Test entity',
         ]);
 
         TestModel::create(['name' => 'Random name...']);
@@ -101,8 +101,6 @@ class TaxonomyTest extends TestCase
         $serviceType = TestProductCategory::create([
             'name' => 'Random'
         ], $parentServiceType);
-
-        // dd(TestProductCategory::all()->pluck('id'));
 
         $this->assertEquals(1, $serviceType->parent(TestProductCategory::class)->count());
         $this->assertEquals(0, $serviceType->parent(TestSomeCategory::class)->count());

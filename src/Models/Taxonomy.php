@@ -109,7 +109,7 @@ class Taxonomy extends Model
             config('taxonomy.morph_name'),
             config('taxonomy.tables.term_relationships', 'term_relationships'),
             'taxonomy_id'
-        );
+        )->withPivotValue('taxonomy_type', static::$singleTableType);
     }
 
     /**
@@ -122,6 +122,6 @@ class Taxonomy extends Model
             $related,
             config('taxonomy.morph_name'),
             config('taxonomy.tables.term_relationships', 'term_relationships')
-        );
+        )->withPivotValue('taxonomy_type', static::$singleTableType);
     }
 }

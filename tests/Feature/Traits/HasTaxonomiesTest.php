@@ -4,6 +4,8 @@ namespace Scrapify\LaravelTaxonomy\Tests\Feature\Traits;
 
 use Scrapify\LaravelTaxonomy\Tests\TestCase;
 use Scrapify\LaravelTaxonomy\Tests\Support\TestModel;
+use Scrapify\LaravelTaxonomy\Tests\Support\TestServiceType;
+use Scrapify\LaravelTaxonomy\Tests\Support\TestSomeCategory;
 use Scrapify\LaravelTaxonomy\Tests\Support\TestProductCategory;
 
 /**
@@ -51,5 +53,53 @@ class HasTaxonomiesTest extends TestCase
             ->first()
             ->morphToManyTaxonomies(TestProductCategory::class)
             ->count());
+    }
+
+    /**
+     *
+     */
+    public function test_it_syncs_morph_to_many_taxonomies_by_taxonomy_type()
+    {
+        $testModel = TestModel::create(['name' => 'New model']);
+
+        TestProductCategory::create([
+            'name' => 'First taxonomy2'
+        ]);
+
+        TestProductCategory::create([
+            'name' => 'First taxonomy2'
+        ]);
+
+        TestSomeCategory::create([
+            'name' => 'First taxonomy3'
+        ]);
+
+        $testModel->products()->sync([1, 2]);
+        $this->assertEquals(2, $testModel->products()->count());
+        $testModel->products()->sync(1);
+        $this->assertEquals(1, $testModel->products()->count());
+
+        $testModel->some()->sync(3);
+        $testModel->products()->sync([1, 2]);
+
+        $this->assertEquals(1, $testModel->some()->count());
+        $this->assertEquals(2, $testModel->products()->count());
+    }
+
+    /**
+     *
+     */
+    public function test_it_syncs_morph_to_one_taxonomies_by_taxonomy_type()
+    {
+        $testModel = TestModel::create(['name' => 'New model']);
+
+        TestProductCategory::create(['name' => 'First taxonomy2']);
+        TestProductCategory::create(['name' => 'First taxonomy2']);
+        TestServiceType::create(['name' => 'Another tax']);
+
+        $testModel->products()->sync([1, 2]);
+        $testModel->serviceType()->sync([3, 1]);
+        $this->assertEquals(1, $testModel->serviceType()->count());
+        $this->assertEquals(2, $testModel->products()->count());
     }
 }

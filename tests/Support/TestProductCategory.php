@@ -9,5 +9,5 @@ namespace Scrapify\LaravelTaxonomy\Tests\Support;
  */
 class TestProductCategory extends TestNestedTaxonomy
 {
-    protected static $singleTableType = 'product_category';
+    public static $singleTableType = 'product_category';
 }

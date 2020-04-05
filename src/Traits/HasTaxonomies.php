@@ -25,7 +25,8 @@ trait HasTaxonomies
             config('taxonomy.tables.term_relationships', 'term_relationships'),
             null,
             'taxonomy_id'
-        );
+        )
+            ->withPivotValue('taxonomy_type', $related::$singleTableType);
     }
 
     /**
@@ -40,7 +41,8 @@ trait HasTaxonomies
             config('taxonomy.tables.term_relationships', 'term_relationships'),
             null,
             'taxonomy_id'
-        );
+        )
+            ->withPivotValue('taxonomy_type', $related::$singleTableType);
     }
 
     /**
