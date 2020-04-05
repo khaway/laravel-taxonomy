@@ -9,6 +9,7 @@ use Scrapify\LaravelTaxonomy\TaxonomyServiceProvider;
 use Scrapify\LaravelTaxonomy\Tests\Support\TestServiceType;
 use Scrapify\LaravelTaxonomy\Tests\Support\TestSomeCategory;
 use Scrapify\LaravelTaxonomy\Tests\Support\TestProductCategory;
+use Spatie\SchemalessAttributes\SchemalessAttributesServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
@@ -18,11 +19,12 @@ abstract class TestCase extends Orchestra
 
         $this->setUpDatabase($this->app);
 
-        Taxonomy::$sub = [
+        $this->app['config']->set('taxonomy.sti.type_field', 'type');
+        $this->app['config']->set('taxonomy.types', [
             TestProductCategory::class,
             TestSomeCategory::class,
             TestServiceType::class
-        ];
+        ]);
     }
 
     /**
@@ -33,6 +35,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
+            SchemalessAttributesServiceProvider::class,
             TaxonomyServiceProvider::class
         ];
     }

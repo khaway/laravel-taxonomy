@@ -2,14 +2,14 @@
 
 namespace Scrapify\LaravelTaxonomy\Tests\Feature\Models;
 
-use Scrapify\LaravelTaxonomy\{
+use Scrapify\LaravelTaxonomy\{Models\Taxonomy,
     Models\Term,
     Tests\TestCase,
     Tests\Support\TestModel,
     Tests\Support\TestServiceType,
     Tests\Support\TestSomeCategory,
-    Tests\Support\TestProductCategory
-};
+    Tests\Support\TestProductCategory};
+use Illuminate\Support\Str;
 
 /**
  * Class TaxonomyTest

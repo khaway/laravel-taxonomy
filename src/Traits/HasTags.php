@@ -33,7 +33,6 @@ trait HasTags
         return $this->taxonomyRelation(Tag::class);
     }
 
-
     public function untag() {}
     public function retag() {}
     public function detag() {}

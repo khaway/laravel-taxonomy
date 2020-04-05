@@ -2,8 +2,6 @@
 
 namespace Scrapify\LaravelTaxonomy;
 
-use Scrapify\LaravelTaxonomy\Models\NestedTaxonomy;
-
 /**
  * Class Taxonomy
  *
@@ -11,11 +9,6 @@ use Scrapify\LaravelTaxonomy\Models\NestedTaxonomy;
  */
 class Taxonomy
 {
-    /**
-     * @var string
-     */
-    public static $baseModel = NestedTaxonomy::class;
-
     /**
      * @var array
      */

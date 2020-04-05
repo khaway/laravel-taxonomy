@@ -2,8 +2,9 @@
 
 namespace Scrapify\LaravelTaxonomy\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use Scrapify\LaravelTaxonomy\Taxonomy as TaxonomyConfig;
+use Scrapify\LaravelTaxonomy\Traits\HasMeta;
 use Scrapify\LaravelTaxonomy\Models\Scopes\TaxonomyScope;
 use Scrapify\LaravelTaxonomy\Traits\HasTermFillableAttributes;
 use Scrapify\LaravelTaxonomy\Models\Observers\TaxonomyObserver;
@@ -16,17 +17,19 @@ use Nanigans\SingleTableInheritance\SingleTableInheritanceTrait;
  */
 class Taxonomy extends Model
 {
-    use HasTermFillableAttributes, SingleTableInheritanceTrait;
+    use HasMeta,
+        HasTermFillableAttributes,
+        SingleTableInheritanceTrait;
 
     /**
      * @var string
      */
-    public static $singleTableTypeField = 'taxonomy';
+    public static $singleTableTypeField;
 
     /**
      * @var array
      */
-    public static $singleTableSubclasses = [];
+    public static $singleTableSubclasses;
 
     /**
      * @var string
@@ -36,12 +39,19 @@ class Taxonomy extends Model
     /**
      * @var array
      */
-    protected $fillable = ['term_id', 'taxonomy', 'description', 'parent_id'];
+    protected $fillable = [
+        'term_id', 'type', 'description', 'parent_id', 'meta'
+    ];
 
     /**
      * @var array
      */
     protected $with = ['term'];
+
+    /**
+     * @var array
+     */
+    protected $casts = ['meta' => 'array'];
 
     /**
      * Taxonomy constructor.
@@ -50,14 +60,26 @@ class Taxonomy extends Model
      */
     public function __construct(array $attributes = [])
     {
-        static::$singleTableTypeField = TaxonomyConfig::$typeField;
-        static::$singleTableSubclasses = TaxonomyConfig::$sub;
+        static::$singleTableTypeField = config('taxonomy.sti.type_field');
+        static::$singleTableSubclasses = config('taxonomy.types');
 
         parent::__construct($attributes);
 
         $this->setTable(
             config('taxonomy.tables.term_taxonomy', $this->table ?? 'term_taxonomy')
         );
+    }
+
+    /**
+     * @return string
+     */
+    public static function taxonomyType()
+    {
+        $class = static::class;
+
+        return defined("{$class}::TAXONOMY_TYPE")
+            ? static::TAXONOMY_TYPE
+            : Str::snake(class_basename($class));
     }
 
     /**

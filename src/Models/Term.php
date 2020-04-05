@@ -4,6 +4,7 @@ namespace Scrapify\LaravelTaxonomy\Models;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Scrapify\LaravelTaxonomy\Traits\HasMeta;
 use Scrapify\LaravelTaxonomy\Models\Observers\TermObserver;
 
 /**
@@ -13,6 +14,8 @@ use Scrapify\LaravelTaxonomy\Models\Observers\TermObserver;
  */
 class Term extends Model
 {
+    use HasMeta;
+
     /**
      * @var string
      */
@@ -21,7 +24,12 @@ class Term extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'slug', 'term_group'];
+    protected $fillable = ['name', 'slug'];
+
+    /**
+     * @var array
+     */
+    protected $casts = ['meta' => 'array'];
 
     /**
      * Term constructor.

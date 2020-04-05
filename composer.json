@@ -1,10 +1,16 @@
 {
   "name": "khaway/laravel-taxonomy",
+  "description": "Laravel taxonomy package.",
+  "keywords": [
+    "taxonomy",
+    "laravel-taxonomy"
+  ],
   "require": {
     "php": "^7.2",
     "kalnoy/nestedset": "^5.0",
     "ankurk91/laravel-eloquent-relationships": "^1.1",
-    "nanigans/single-table-inheritance": "0.8.*"
+    "nanigans/single-table-inheritance": "0.8.*",
+    "spatie/laravel-schemaless-attributes": "^1.7"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
@@ -28,6 +34,9 @@
         "Scrapify\\LaravelTaxonomy\\TaxonomyServiceProvider"
       ]
     }
+  },
+  "config": {
+    "sort-packages": true
   },
   "minimum-stability": "dev",
   "prefer-stable": true

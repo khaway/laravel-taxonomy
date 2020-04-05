@@ -1,9 +1,15 @@
 <?php
 
-use Cromulent\Taxonomy\Models\Taxonomy;
-use Cromulent\Taxonomy\Models\NestedTaxonomy;
+use Scrapify\LaravelTaxonomy\Models\Tag;
+use Scrapify\LaravelTaxonomy\Models\NestedTaxonomy;
 
 return [
+
+    /**
+     * Base model.
+     */
+
+    'base_model' => NestedTaxonomy::class,
 
     /**
      * Taxonomy tables.
@@ -20,8 +26,7 @@ return [
      */
 
     'types' => [
-        'default' => Taxonomy::class,
-        'nested' => NestedTaxonomy::class,
+        Tag::class
     ],
 
 
@@ -29,6 +34,14 @@ return [
      * Morph name.
      */
 
-    'morph_name' => 'entity'
+    'morph_name' => 'entity',
+
+    /**
+     * Single table inheritance.
+     */
+
+    'sti' => [
+        'type_field' => 'type'
+    ]
 
 ];

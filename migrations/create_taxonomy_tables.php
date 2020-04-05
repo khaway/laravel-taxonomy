@@ -56,15 +56,16 @@ class CreateTaxonomyTables extends Migration
     }
 
     /**
-     *
+     * @return void
      */
     public function upTermTaxonomyTable(): void
     {
         Schema::create($this->termTaxonomyTable, static function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('term_id')->nullable()->index();
-            $table->string('taxonomy', 32)->index();
+            $table->string('type', 32)->index();
             $table->longText('description')->nullable();
+            $table->schemalessAttributes('meta');
 
             // Add nested set columns to table.
             // Check docs for more info.
@@ -75,7 +76,7 @@ class CreateTaxonomyTables extends Migration
     }
 
     /**
-     *
+     * @return void
      */
     public function upTermsTable(): void
     {
@@ -83,16 +84,13 @@ class CreateTaxonomyTables extends Migration
             $table->bigIncrements('id');
             $table->string('name', 200)->index();
             $table->string('slug', 200)->index();
-            $table->bigInteger('term_group')->default(0);
+            $table->schemalessAttributes('meta');
             $table->timestamps();
-
-            // $table->foreign('id')->references('term_id')->on('term_taxonomy')
-            //     ->onUpdate('cascade');
         });
     }
 
     /**
-     *
+     * @return void
      */
     public function upTermRelationshipsTable(): void
     {
@@ -100,6 +98,7 @@ class CreateTaxonomyTables extends Migration
             $table->morphs(config('taxonomy.morph_name'));
             $table->string('taxonomy_type');
             $table->unsignedBigInteger('taxonomy_id')->index();
+            $table->schemalessAttributes('meta');
         });
     }
 
