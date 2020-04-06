@@ -27,7 +27,7 @@ trait HasTermFillableAttributes
     private function addTermFillableAttributes()
     {
         $this->fillable(array_merge(
-            $this->getFillable(), $this->getTermFillable(),
+            $this->getFillable(), $this->getTermFillable()
         ));
 
         return $this;
@@ -36,7 +36,7 @@ trait HasTermFillableAttributes
     /**
      * Boot the metable trait on the model.
      *
-     * @return void
+     * @return array
      */
     public function getTermFillable()
     {
