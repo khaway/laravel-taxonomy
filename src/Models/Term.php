@@ -3,7 +3,6 @@
 namespace Scrapify\LaravelTaxonomy\Models;
 
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
 use Scrapify\LaravelTaxonomy\Models\Concerns\HasMeta;
 use Scrapify\LaravelTaxonomy\Models\Taxonomies\Taxonomy;
 use Scrapify\LaravelTaxonomy\Models\Observers\TermObserver;
@@ -31,20 +30,6 @@ class Term extends Model
      * @var array
      */
     protected $casts = ['meta' => 'array'];
-
-    /**
-     * Term constructor.
-     *
-     * @param array $attributes
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->setTable(
-            config('taxonomy.tables.terms', $this->table ?? 'terms')
-        );
-    }
 
     /**
      * @return void

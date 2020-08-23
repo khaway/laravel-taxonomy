@@ -3,8 +3,8 @@
 namespace Scrapify\LaravelTaxonomy\Models\Taxonomies;
 
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
 use Scrapify\LaravelTaxonomy\Models\Term;
+use Scrapify\LaravelTaxonomy\Models\Model;
 use Scrapify\LaravelTaxonomy\Models\Concerns\HasMeta;
 use Scrapify\LaravelTaxonomy\Models\Scopes\TaxonomyScope;
 use Scrapify\LaravelTaxonomy\Models\Observers\TaxonomyObserver;
@@ -60,10 +60,6 @@ class Taxonomy extends Model
         static::$singleTableSubclasses = config('taxonomy.types');
 
         parent::__construct($attributes);
-
-        $this->setTable(
-            config('taxonomy.tables.term_taxonomy', $this->table ?? 'term_taxonomy')
-        );
     }
 
     /**
@@ -113,11 +109,12 @@ class Taxonomy extends Model
     }
 
     /**
+     * @param null $related
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function term()
+    public function term($related = null)
     {
-        return $this->belongsTo(Term::class, 'term_id');
+        return $this->belongsTo($related ?? Term::class, 'term_id');
     }
 
     /**

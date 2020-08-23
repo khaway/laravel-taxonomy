@@ -3,7 +3,10 @@
 use Kalnoy\Nestedset\NestedSet;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+use Scrapify\LaravelTaxonomy\Models\Term;
 use Illuminate\Database\Migrations\Migration;
+use Scrapify\LaravelTaxonomy\Models\TermRelationship;
+use Scrapify\LaravelTaxonomy\Models\Taxonomies\Taxonomy;
 
 /**
  * Class CreateTaxonomyTables
@@ -38,9 +41,9 @@ class CreateTaxonomyTables extends Migration
      */
     public function __construct()
     {
-        $this->termsTable = config('taxonomy.tables.terms');
-        $this->termTaxonomyTable = config('taxonomy.tables.term_taxonomy');
-        $this->termRelationshipsTable = config('taxonomy.tables.term_relationships');
+        $this->termsTable = config('taxonomy.tables.'.Term::class);
+        $this->termTaxonomyTable = config('taxonomy.tables.'.Taxonomy::class);
+        $this->termRelationshipsTable = config('taxonomy.tables.'.TermRelationship::class);
     }
 
     /**

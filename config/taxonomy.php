@@ -1,6 +1,9 @@
 <?php
 
+use Scrapify\LaravelTaxonomy\Models\Term;
 use Scrapify\LaravelTaxonomy\Models\Taxonomies\Tag;
+use Scrapify\LaravelTaxonomy\Models\TermRelationship;
+use Scrapify\LaravelTaxonomy\Models\Taxonomies\Taxonomy;
 use Scrapify\LaravelTaxonomy\Models\Taxonomies\NestedTaxonomy;
 
 return [
@@ -16,9 +19,9 @@ return [
      */
 
     'tables' => [
-        'terms' => 'terms',
-        'term_taxonomy' => 'term_taxonomy',
-        'term_relationships' => 'term_relationships'
+        Term::class => 'terms',
+        Taxonomy::class => 'term_taxonomy',
+        TermRelationship::class => 'term_relationships'
     ],
 
     /**
