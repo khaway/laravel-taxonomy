@@ -3,7 +3,7 @@
 namespace Scrapify\LaravelTaxonomy\Tests\Support;
 
 use Illuminate\Database\Eloquent\Model;
-use Scrapify\LaravelTaxonomy\Models\Taxonomy;
+use Scrapify\LaravelTaxonomy\Models\Taxonomies\Taxonomy;
 use Scrapify\LaravelTaxonomy\Traits\HasTaxonomies;
 
 class TestModel extends Model

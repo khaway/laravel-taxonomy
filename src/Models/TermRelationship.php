@@ -3,6 +3,7 @@
 namespace Scrapify\LaravelTaxonomy\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Scrapify\LaravelTaxonomy\Models\Taxonomies\Taxonomy;
 
 /**
  * Class TermRelationship

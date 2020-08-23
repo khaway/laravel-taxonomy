@@ -18,7 +18,7 @@ class TaxonomyScope implements Scope
      *
      * @var array
      */
-    protected $extensions = ['WhereTaxonomy', 'WhereSlug', 'WhereName'];
+    protected $extensions = ['WhereType', 'WhereSlug', 'WhereName'];
 
     /**
      * Apply the scope to a given Eloquent query builder.
@@ -51,10 +51,10 @@ class TaxonomyScope implements Scope
      * @param  \Illuminate\Database\Eloquent\Builder  $builder
      * @return void
      */
-    protected function addWhereTaxonomy(Builder $builder)
+    protected function addWhereType(Builder $builder)
     {
-        $builder->macro('whereTaxonomy', function (Builder $builder, $taxonomy, $slug = null) {
-            $builder->where('taxonomy', $taxonomy);
+        $builder->macro('whereType', function (Builder $builder, $taxonomy, $slug = null) {
+            $builder->where('type', $taxonomy);
 
             if ($slug) {
                 $builder->slug($slug);

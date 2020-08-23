@@ -1,19 +1,20 @@
 <?php
 
-namespace Scrapify\LaravelTaxonomy\Models;
+namespace Scrapify\LaravelTaxonomy\Models\Taxonomies;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use Scrapify\LaravelTaxonomy\Traits\HasMeta;
+use Scrapify\LaravelTaxonomy\Models\Term;
+use Scrapify\LaravelTaxonomy\Models\Concerns\HasMeta;
 use Scrapify\LaravelTaxonomy\Models\Scopes\TaxonomyScope;
-use Scrapify\LaravelTaxonomy\Traits\HasTermFillableAttributes;
 use Scrapify\LaravelTaxonomy\Models\Observers\TaxonomyObserver;
 use Nanigans\SingleTableInheritance\SingleTableInheritanceTrait;
+use Scrapify\LaravelTaxonomy\Models\Concerns\HasTermFillableAttributes;
 
 /**
  * Class Taxonomy
  *
- * @package Scrapify\LaravelTaxonomy\Models
+ * @package Scrapify\LaravelTaxonomy\Models\Taxonomies
  */
 class Taxonomy extends Model
 {
@@ -42,11 +43,6 @@ class Taxonomy extends Model
     protected $fillable = [
         'term_id', 'type', 'description', 'parent_id', 'meta'
     ];
-
-    /**
-     * @var array
-     */
-    protected $with = ['term'];
 
     /**
      * @var array
@@ -94,15 +90,19 @@ class Taxonomy extends Model
             return $value;
         }
 
-        if (isset($this->term) && $this->relationLoaded('term')) {
-            return  $this->term->{$key};
+        if (isset($this->term_id) && ! $this->relationLoaded('term')) {
+            $this->loadMissing('term');
+
+            if ($termValue = optional($this->term)->{$key}) {
+                return $termValue;
+            }
         }
 
         return null;
     }
 
     /**
-     * {@inheritdoc}
+     * @return void
      */
     protected static function boot()
     {

@@ -2,7 +2,7 @@
 
 namespace Scrapify\LaravelTaxonomy\Tests\Support;
 
-use Scrapify\LaravelTaxonomy\Models\NestedTaxonomy;
+use Scrapify\LaravelTaxonomy\Models\Taxonomies\NestedTaxonomy;
 
 /**
  * Class TestNestedTaxonomy

@@ -2,7 +2,7 @@
 
 namespace Scrapify\LaravelTaxonomy\Traits;
 
-use Scrapify\LaravelTaxonomy\Models\Tag;
+use Scrapify\LaravelTaxonomy\Models\Taxonomies\Tag;
 
 trait HasTags
 {

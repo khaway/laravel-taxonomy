@@ -99,6 +99,7 @@ class CreateTaxonomyTables extends Migration
             $table->string('taxonomy_type');
             $table->unsignedBigInteger('taxonomy_id')->index();
             $table->schemalessAttributes('meta');
+            $table->timestamps();
         });
     }
 

@@ -1,7 +1,7 @@
 <?php
 
-use Scrapify\LaravelTaxonomy\Models\Tag;
-use Scrapify\LaravelTaxonomy\Models\NestedTaxonomy;
+use Scrapify\LaravelTaxonomy\Models\Taxonomies\Tag;
+use Scrapify\LaravelTaxonomy\Models\Taxonomies\NestedTaxonomy;
 
 return [
 

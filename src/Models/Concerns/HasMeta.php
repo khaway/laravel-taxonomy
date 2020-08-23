@@ -1,13 +1,13 @@
 <?php
 
-namespace Scrapify\LaravelTaxonomy\Traits;
+namespace Scrapify\LaravelTaxonomy\Models\Concerns;
 
 use Spatie\SchemalessAttributes\SchemalessAttributes;
 
 /**
  * Trait HasMeta
  *
- * @package Scrapify\LaravelTaxonomy\Traits
+ * @package Scrapify\LaravelTaxonomy\Models\Concerns
  */
 trait HasMeta
 {

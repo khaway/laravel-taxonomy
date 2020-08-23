@@ -1,13 +1,13 @@
 <?php
 
-namespace Scrapify\LaravelTaxonomy\Models;
+namespace Scrapify\LaravelTaxonomy\Models\Taxonomies;
 
 use Kalnoy\Nestedset\NodeTrait;
 
 /**
  * Class NestedTaxonomy
  *
- * @package Scrapify\LaravelTaxonomy\Models
+ * @package Scrapify\LaravelTaxonomy\Models\Taxonomies
  */
 class NestedTaxonomy extends Taxonomy
 {

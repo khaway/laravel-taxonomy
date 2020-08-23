@@ -1,11 +1,11 @@
 <?php
 
-namespace Scrapify\LaravelTaxonomy\Models;
+namespace Scrapify\LaravelTaxonomy\Models\Taxonomies;
 
 /**
  * Class Tag
  *
- * @package Scrapify\LaravelTaxonomy\Models
+ * @package Scrapify\LaravelTaxonomy\Models\Taxonomies
  */
 class Tag extends Taxonomy
 {

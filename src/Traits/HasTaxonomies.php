@@ -3,6 +3,8 @@
 namespace Scrapify\LaravelTaxonomy\Traits;
 
 use Ankurk91\Eloquent\MorphToOne;
+use Scrapify\LaravelTaxonomy\Models\Term;
+use Scrapify\LaravelTaxonomy\Models\Taxonomies\Taxonomy;
 
 /**
  * Trait HasTaxonomies
@@ -26,7 +28,8 @@ trait HasTaxonomies
             null,
             'taxonomy_id'
         )
-            ->withPivotValue('taxonomy_type', $related::$singleTableType);
+            ->withPivotValue('taxonomy_type', $related::$singleTableType)
+            ->withTimestamps();
     }
 
     /**
@@ -42,7 +45,8 @@ trait HasTaxonomies
             null,
             'taxonomy_id'
         )
-            ->withPivotValue('taxonomy_type', $related::$singleTableType);
+            ->withPivotValue('taxonomy_type', $related::$singleTableType)
+            ->withTimestamps();
     }
 
     /**
@@ -54,8 +58,10 @@ trait HasTaxonomies
      */
     public function terms($slug = null, $taxonomy = null)
     {
-        return $this->loadMissing('taxonomies')->taxonomies->map(function ($taxonomy) {
-            return $taxonomy->term;
-        });
+        return $this->loadMissing('taxonomies')
+                    ->taxonomies
+                    ->map(static function (Taxonomy $taxonomy): Term {
+                        return $taxonomy->term;
+                    });
     }
 }

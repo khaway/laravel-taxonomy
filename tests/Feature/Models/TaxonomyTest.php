@@ -2,7 +2,7 @@
 
 namespace Scrapify\LaravelTaxonomy\Tests\Feature\Models;
 
-use Scrapify\LaravelTaxonomy\{Models\Taxonomy,
+use Scrapify\LaravelTaxonomy\{Models\Taxonomies\Taxonomy,
     Models\Term,
     Tests\TestCase,
     Tests\Support\TestModel,

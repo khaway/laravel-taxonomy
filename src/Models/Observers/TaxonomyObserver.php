@@ -2,7 +2,7 @@
 
 namespace Scrapify\LaravelTaxonomy\Models\Observers;
 
-use Scrapify\LaravelTaxonomy\Models\{Term, Taxonomy};
+use Scrapify\LaravelTaxonomy\Models\{Term, Taxonomies\Taxonomy};
 
 /**
  * Class TaxonomyObserver

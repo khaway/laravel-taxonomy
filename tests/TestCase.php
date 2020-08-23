@@ -2,7 +2,6 @@
 
 namespace Scrapify\LaravelTaxonomy\Tests;
 
-use Scrapify\LaravelTaxonomy\Taxonomy;
 use Illuminate\Database\Schema\Blueprint;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Scrapify\LaravelTaxonomy\TaxonomyServiceProvider;

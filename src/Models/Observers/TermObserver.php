@@ -22,7 +22,7 @@ class TermObserver
 	    // If term slug not set, convert name to slug
         // using "setSlugAttribute" mutator.
         if (! $term->slug) {
-            $term->slug = $term->name;
+            $term->setSlugAttribute($term->name);
         }
 	}
 }
