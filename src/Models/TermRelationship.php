@@ -2,21 +2,33 @@
 
 namespace Scrapify\LaravelTaxonomy\Models;
 
-use Illuminate\Database\Eloquent\Relations\Pivot;
+use Spatie\EloquentSortable\Sortable;
+use Illuminate\Database\Eloquent\Builder;
+use Spatie\EloquentSortable\SortableTrait;
+use Illuminate\Database\Eloquent\Relations\MorphPivot;
 use Scrapify\LaravelTaxonomy\Models\Taxonomies\Taxonomy;
 
 /**
  * Class TermRelationship
  *
- * @todo configure pivot model
  * @package Cromulent\Taxonomy\Models
  */
-class TermRelationship extends Pivot
+class TermRelationship extends MorphPivot implements Sortable
 {
+    use SortableTrait;
+
     /**
      * {@inheritdoc}
      */
     protected $table = 'term_relationships';
+
+    /**
+     * @var array|string[]
+     */
+    public array $sortable = [
+        'order_column_name' => 'order',
+        'sort_when_creating' => true
+    ];
 
     /**
      * {@inheritdoc}
@@ -26,7 +38,7 @@ class TermRelationship extends Pivot
     /**
      * {@inheritdoc}
      */
-    // protected $fillable = ['object_id', 'term_taxonomy_id', 'term_order'];
+    protected $fillable = ['order'];
 
     /**
      * {@inheritdoc}
@@ -48,5 +60,13 @@ class TermRelationship extends Pivot
     public function taxonomy()
     {
         return $this->belongsTo(Taxonomy::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function buildSortQuery(): Builder
+    {
+        return static::query()->where('taxonomy_type', $this->taxonomy_type);
     }
 }

@@ -4,6 +4,7 @@ namespace Scrapify\LaravelTaxonomy\Traits;
 
 use Ankurk91\Eloquent\MorphToOne;
 use Scrapify\LaravelTaxonomy\Models\Term;
+use Scrapify\LaravelTaxonomy\Models\TermRelationship;
 use Scrapify\LaravelTaxonomy\Models\Taxonomies\Taxonomy;
 
 /**
@@ -30,7 +31,8 @@ trait HasTaxonomies
             'taxonomy_id'
         )
             ->withPivotValue('taxonomy_type', $related::$singleTableType)
-            ->withTimestamps();
+            ->withTimestamps()
+            ->using(TermRelationship::class);
     }
 
     /**
@@ -48,7 +50,8 @@ trait HasTaxonomies
             'taxonomy_id'
         )
             ->withPivotValue('taxonomy_type', $related::$singleTableType)
-            ->withTimestamps();
+            ->withTimestamps()
+            ->using(TermRelationship::class);
     }
 
     /**

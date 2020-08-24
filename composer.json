@@ -11,6 +11,7 @@
     "kalnoy/nestedset": "^5.0",
     "nanigans/single-table-inheritance": "0.8.*",
     "spatie/data-transfer-object": "^2.3",
+    "spatie/eloquent-sortable": "^3.8",
     "spatie/laravel-schemaless-attributes": "^1.7"
   },
   "require-dev": {

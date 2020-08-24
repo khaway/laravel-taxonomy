@@ -99,6 +99,7 @@ class HasTaxonomiesTest extends TestCase
 
         $testModel->products()->sync([1, 2]);
         $testModel->serviceType()->sync([3, 1]);
+
         $this->assertEquals(1, $testModel->serviceType()->count());
         $this->assertEquals(2, $testModel->products()->count());
     }

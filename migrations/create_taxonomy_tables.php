@@ -98,6 +98,7 @@ class CreateTaxonomyTables extends Migration
     public function upTermRelationshipsTable(): void
     {
         Schema::create($this->termRelationshipsTable, static function (Blueprint $table) {
+            $table->bigInteger('order')->nullable();
             $table->morphs(config('taxonomy.morph_name'));
             $table->string('taxonomy_type');
             $table->unsignedBigInteger('taxonomy_id')->index();
