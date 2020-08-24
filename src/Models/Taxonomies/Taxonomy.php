@@ -3,8 +3,11 @@
 namespace Scrapify\LaravelTaxonomy\Models\Taxonomies;
 
 use Illuminate\Support\Str;
+use Spatie\EloquentSortable\Sortable;
 use Scrapify\LaravelTaxonomy\Models\Term;
+use Illuminate\Database\Eloquent\Builder;
 use Scrapify\LaravelTaxonomy\Models\Model;
+use Spatie\EloquentSortable\SortableTrait;
 use Scrapify\LaravelTaxonomy\Models\Concerns\HasMeta;
 use Scrapify\LaravelTaxonomy\Models\Scopes\TaxonomyScope;
 use Scrapify\LaravelTaxonomy\Models\Observers\TaxonomyObserver;
@@ -16,9 +19,10 @@ use Scrapify\LaravelTaxonomy\Models\Concerns\HasTermFillableAttributes;
  *
  * @package Scrapify\LaravelTaxonomy\Models\Taxonomies
  */
-class Taxonomy extends Model
+class Taxonomy extends Model implements Sortable
 {
     use HasMeta,
+        SortableTrait,
         HasTermFillableAttributes,
         SingleTableInheritanceTrait;
 
@@ -50,6 +54,14 @@ class Taxonomy extends Model
     protected $casts = ['meta' => 'array'];
 
     /**
+     * @var array|string[]
+     */
+    public array $sortable = [
+        'order_column_name' => 'order',
+        'sort_when_creating' => true
+    ];
+
+    /**
      * Taxonomy constructor.
      *
      * @param array $attributes
@@ -60,6 +72,17 @@ class Taxonomy extends Model
         static::$singleTableSubclasses = config('taxonomy.types');
 
         parent::__construct($attributes);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function buildSortQuery(): Builder
+    {
+        return static::query()->where([
+            'type' => $this->type,
+            'parent_id' => $this->parent_id
+        ]);
     }
 
     /**

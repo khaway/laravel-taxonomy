@@ -65,6 +65,7 @@ class CreateTaxonomyTables extends Migration
     {
         Schema::create($this->termTaxonomyTable, static function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('order')->nullable();
             $table->unsignedBigInteger('term_id')->nullable()->index();
             $table->string('type', 32)->index();
             $table->longText('description')->nullable();
@@ -85,8 +86,8 @@ class CreateTaxonomyTables extends Migration
     {
         Schema::create($this->termsTable, static function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 200)->index();
-            $table->string('slug', 200)->index();
+            $table->longText('name')->index();
+            $table->longText('slug')->index();
             $table->schemalessAttributes('meta');
             $table->timestamps();
         });

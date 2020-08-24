@@ -33,7 +33,7 @@ class TermRelationship extends MorphPivot implements Sortable
     /**
      * {@inheritdoc}
      */
-	protected $primaryKey = ['entity_id', 'taxonomy_id'];
+	// protected $primaryKey = ['entity_id', 'taxonomy_id'];
 
     /**
      * {@inheritdoc}
