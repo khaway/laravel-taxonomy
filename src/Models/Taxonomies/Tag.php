@@ -10,9 +10,7 @@ namespace Scrapify\LaravelTaxonomy\Models\Taxonomies;
 class Tag extends Taxonomy
 {
     /**
-     * @var array
+     * @var string
      */
-    protected $attributes = [
-        'taxonomy' => 'tag'
-    ];
+    public static $singleTableType = 'tag';
 }

@@ -34,7 +34,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Scrapify\\LaravelTaxonomy\\TaxonomyServiceProvider"
+        "Scrapify\\LaravelTaxonomy\\Providers\\TaxonomyServiceProvider"
       ]
     }
   },
