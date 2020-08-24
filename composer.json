@@ -22,7 +22,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Scrapify\\LaravelTaxonomy\\": "src/"
+      "Scrapify\\LaravelTaxonomy\\": "src/",
+      "Scrapify\\LaravelTaxonomy\\Database\\": "database/"
     }
   },
   "autoload-dev": {

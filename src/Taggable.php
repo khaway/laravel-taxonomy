@@ -1,10 +1,15 @@
 <?php
 
-namespace Scrapify\LaravelTaxonomy\Traits;
+namespace Scrapify\LaravelTaxonomy;
 
 use Scrapify\LaravelTaxonomy\Models\Taxonomies\Tag;
 
-trait HasTags
+/**
+ * Trait Taggable
+ *
+ * @package Scrapify\LaravelTaxonomy
+ */
+trait Taggable
 {
     public function tags($tags)
     {

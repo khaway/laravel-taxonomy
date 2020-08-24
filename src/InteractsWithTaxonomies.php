@@ -1,18 +1,20 @@
 <?php
 
-namespace Scrapify\LaravelTaxonomy\Traits;
+namespace Scrapify\LaravelTaxonomy;
 
 use Ankurk91\Eloquent\MorphToOne;
 use Scrapify\LaravelTaxonomy\Models\Term;
 use Scrapify\LaravelTaxonomy\Models\TermRelationship;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Scrapify\LaravelTaxonomy\Models\Taxonomies\Taxonomy;
+use Ankurk91\Eloquent\Relations\MorphToOne as MorphToOneRelation;
 
 /**
- * Trait HasTaxonomies
+ * Trait InteractsWithTaxonomies
  *
- * @package Scrapify\LaravelTaxonomy\Traits
+ * @package Scrapify\LaravelTaxonomy
  */
-trait HasTaxonomies
+trait InteractsWithTaxonomies
 {
     use MorphToOne;
 
@@ -21,7 +23,7 @@ trait HasTaxonomies
      * @param string|null $table
      * @return \Ankurk91\Eloquent\Relations\MorphToOne
      */
-    public function morphToOneTaxonomy($related, ?string $table = null)
+    public function morphToOneTaxonomy($related, ?string $table = null): MorphToOneRelation
     {
         return $this->morphToOne(
             $related,
@@ -38,9 +40,9 @@ trait HasTaxonomies
     /**
      * @param $related
      * @param string|null $table
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    public function morphToManyTaxonomies($related, ?string $table = null)
+    public function morphToManyTaxonomies($related, ?string $table = null): MorphToMany
     {
         return $this->morphToMany(
             $related,

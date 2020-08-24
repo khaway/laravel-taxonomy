@@ -4,11 +4,11 @@ namespace Scrapify\LaravelTaxonomy\Tests\Support;
 
 use Illuminate\Database\Eloquent\Model;
 use Scrapify\LaravelTaxonomy\Models\Taxonomies\Taxonomy;
-use Scrapify\LaravelTaxonomy\Traits\HasTaxonomies;
+use Scrapify\LaravelTaxonomy\InteractsWithTaxonomies;
 
 class TestModel extends Model
 {
-    use HasTaxonomies;
+    use InteractsWithTaxonomies;
 
     protected $table = 'test_models';
     protected $guarded = [];

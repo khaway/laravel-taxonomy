@@ -1,6 +1,6 @@
 <?php
 
-use Scrapify\LaravelTaxonomy\TaxonomySeeder;
+use Scrapify\LaravelTaxonomy\Database\Seeds\TaxonomySeeder;
 
 class DummyClass extends TaxonomySeeder
 {

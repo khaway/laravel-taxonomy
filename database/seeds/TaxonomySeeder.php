@@ -1,6 +1,6 @@
 <?php
 
-namespace Scrapify\LaravelTaxonomy;
+namespace Scrapify\LaravelTaxonomy\Database\Seeds;
 
 use RuntimeException;
 use Illuminate\Database\Seeder;

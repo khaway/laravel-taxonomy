@@ -3,19 +3,17 @@
 ```php
 <?php
 
-use Scrapify\LaravelTaxonomy\Models\NestedTaxonomy;
-use Scrapify\LaravelTaxonomy\Traits\HasTaxonomies;
+use Scrapify\LaravelTaxonomy\Models\Taxonomies\NestedTaxonomy;
+use Scrapify\LaravelTaxonomy\InteractsWithTaxonomies;
 
 class ProductCategory extends NestedTaxonomy
 {
-    protected $attributes = [
-        'taxonomy' => 'product_category'
-    ];   
+    public static $singleTableType = 'product_category';
 }
 
 class Product
 {
-    use HasTaxonomies;
+    use InteractsWithTaxonomies;
 
     public function categories()
     {
@@ -23,5 +21,9 @@ class Product
     }
 }
 
-$product = Product::create([...])->syncWithManyTaxonomies()
+$productCategory = ProductCategory::create(['Notebooks']);
+
+Product::create(['name' => 'Apple MacBook'])
+    ->categories()
+    ->sync($productCategory->id);
 ```

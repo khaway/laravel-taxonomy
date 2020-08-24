@@ -4,7 +4,7 @@ namespace Scrapify\LaravelTaxonomy\Tests;
 
 use Illuminate\Database\Schema\Blueprint;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Scrapify\LaravelTaxonomy\TaxonomyServiceProvider;
+use Scrapify\LaravelTaxonomy\Providers\TaxonomyServiceProvider;
 use Scrapify\LaravelTaxonomy\Tests\Support\TestServiceType;
 use Scrapify\LaravelTaxonomy\Tests\Support\TestSomeCategory;
 use Scrapify\LaravelTaxonomy\Tests\Support\TestProductCategory;
@@ -59,7 +59,7 @@ abstract class TestCase extends Orchestra
             $table->softDeletes();
         });
 
-        include_once __DIR__.'/../migrations/create_taxonomy_tables.php';
+        include_once __DIR__ . '/../database/migrations/create_taxonomy_tables.php';
 
         (new \CreateTaxonomyTables())->up();
     }

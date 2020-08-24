@@ -1,14 +1,15 @@
 <?php
 
-namespace Scrapify\LaravelTaxonomy;
+namespace Scrapify\LaravelTaxonomy\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Scrapify\LaravelTaxonomy\Database\Seeds\TaxonomySeeder;
 use Scrapify\LaravelTaxonomy\Console\TaxonomySeederMakeCommand;
 
 /**
  * Class TaxonomyServiceProvider
  *
- * @package Scrapify\LaravelTaxonomy
+ * @package Scrapify\LaravelTaxonomy\Providers
  */
 class TaxonomyServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,7 @@ class TaxonomyServiceProvider extends ServiceProvider
      */
 	public function register(): void
     {
+        class_exists(TaxonomySeeder::class);
         $this->registerConfig();
         $this->registerCommands();
     }
@@ -49,7 +51,7 @@ class TaxonomyServiceProvider extends ServiceProvider
     {
         if (! class_exists('CreateTaxonomyTables')) {
             $this->publishes([
-                __DIR__.'/../migrations/create_taxonomy_tables.php'
+                __DIR__ . '/../../database/migrations/create_taxonomy_tables.php'
                     => database_path('migrations/'.date('Y_m_d_His').'_create_taxonomy_tables.php'),
             ], 'taxonomy-migrations');
         }
@@ -61,7 +63,7 @@ class TaxonomyServiceProvider extends ServiceProvider
     public function registerConfigPublishing(): void
     {
         $this->publishes([
-            __DIR__.'/../config/taxonomy.php' => config_path('taxonomy.php'),
+            __DIR__ . '/../../config/taxonomy.php' => config_path('taxonomy.php'),
         ], 'taxonomy-config');
     }
 
@@ -73,7 +75,7 @@ class TaxonomyServiceProvider extends ServiceProvider
 	public function registerConfig(): void
 	{
 		$this->mergeConfigFrom(
-            __DIR__.'/../config/taxonomy.php', 'taxonomy'
+            __DIR__ . '/../../config/taxonomy.php', 'taxonomy'
 		);
 	}
 
