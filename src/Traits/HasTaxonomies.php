@@ -17,14 +17,15 @@ trait HasTaxonomies
 
     /**
      * @param $related
+     * @param string|null $table
      * @return \Ankurk91\Eloquent\Relations\MorphToOne
      */
-    public function morphToOneTaxonomy($related)
+    public function morphToOneTaxonomy($related, ?string $table = null)
     {
         return $this->morphToOne(
             $related,
             config('taxonomy.morph_name'),
-            config('taxonomy.tables.term_relationships', 'term_relationships'),
+            $table ?: config('taxonomy.tables.term_relationships', 'term_relationships'),
             null,
             'taxonomy_id'
         )
@@ -34,14 +35,15 @@ trait HasTaxonomies
 
     /**
      * @param $related
+     * @param string|null $table
      * @return mixed
      */
-    public function morphToManyTaxonomies($related)
+    public function morphToManyTaxonomies($related, ?string $table = null)
     {
         return $this->morphToMany(
             $related,
             config('taxonomy.morph_name'),
-            config('taxonomy.tables.term_relationships', 'term_relationships'),
+            $table ?: config('taxonomy.tables.term_relationships', 'term_relationships'),
             null,
             'taxonomy_id'
         )
