@@ -111,10 +111,10 @@ class Taxonomy extends Model implements Sortable
 
         if (isset($this->term_id) && ! $this->relationLoaded('term')) {
             $this->loadMissing('term');
+        }
 
-            if ($termValue = optional($this->term)->{$key}) {
-                return $termValue;
-            }
+        if (isset($this->term)) {
+            return $this->term->{$key};
         }
 
         return null;

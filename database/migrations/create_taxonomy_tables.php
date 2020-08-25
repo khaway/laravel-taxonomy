@@ -86,8 +86,8 @@ class CreateTaxonomyTables extends Migration
     {
         Schema::create($this->termsTable, static function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->longText('name')->index();
-            $table->longText('slug')->index();
+            $table->longText('name');
+            $table->string('slug', 512)->index();
             $table->schemalessAttributes('meta');
             $table->timestamps();
         });
