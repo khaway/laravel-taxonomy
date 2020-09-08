@@ -32,6 +32,7 @@ trait InteractsWithTaxonomies
             null,
             'taxonomy_id'
         )
+            ->withPivot('meta')
             ->withPivotValue('taxonomy_type', $related::$singleTableType)
             ->withTimestamps()
             ->using(TermRelationship::class);
@@ -51,6 +52,7 @@ trait InteractsWithTaxonomies
             null,
             'taxonomy_id'
         )
+            ->withPivot('meta')
             ->withPivotValue('taxonomy_type', $related::$singleTableType)
             ->withTimestamps()
             ->using(TermRelationship::class);
