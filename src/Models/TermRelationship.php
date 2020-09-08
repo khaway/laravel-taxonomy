@@ -5,6 +5,7 @@ namespace Scrapify\LaravelTaxonomy\Models;
 use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\EloquentSortable\SortableTrait;
+use Scrapify\LaravelTaxonomy\Models\Concerns\HasMeta;
 use Illuminate\Database\Eloquent\Relations\MorphPivot;
 use Scrapify\LaravelTaxonomy\Models\Concerns\HasTaxonomy;
 
@@ -15,7 +16,7 @@ use Scrapify\LaravelTaxonomy\Models\Concerns\HasTaxonomy;
  */
 class TermRelationship extends MorphPivot implements Sortable
 {
-    use SortableTrait, HasTaxonomy;
+    use SortableTrait, HasTaxonomy, HasMeta;
 
     /**
      * @var string
