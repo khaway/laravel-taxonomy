@@ -37,6 +37,11 @@ class TermRelationship extends MorphPivot implements Sortable
     protected $fillable = ['meta', 'order'];
 
     /**
+     * @var array
+     */
+    protected $casts = ['meta' => 'array'];
+
+    /**
      * TermRelationship constructor.
      *
      * @param array $attributes
