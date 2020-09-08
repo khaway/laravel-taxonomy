@@ -6,7 +6,7 @@ use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\EloquentSortable\SortableTrait;
 use Illuminate\Database\Eloquent\Relations\MorphPivot;
-use Scrapify\LaravelTaxonomy\Models\Taxonomies\Taxonomy;
+use Scrapify\LaravelTaxonomy\Models\Concerns\HasTaxonomy;
 
 /**
  * Class TermRelationship
@@ -15,10 +15,10 @@ use Scrapify\LaravelTaxonomy\Models\Taxonomies\Taxonomy;
  */
 class TermRelationship extends MorphPivot implements Sortable
 {
-    use SortableTrait;
+    use SortableTrait, HasTaxonomy;
 
     /**
-     * {@inheritdoc}
+     * @var string
      */
     protected $table = 'term_relationships';
 
@@ -31,35 +31,22 @@ class TermRelationship extends MorphPivot implements Sortable
     ];
 
     /**
-     * {@inheritdoc}
+     * @var string[]
      */
-	// protected $primaryKey = ['entity_id', 'taxonomy_id'];
+    protected $fillable = ['meta', 'order'];
 
     /**
-     * {@inheritdoc}
-     */
-    protected $fillable = ['order'];
-
-    /**
-     * {@inheritdoc}
+     * TermRelationship constructor.
+     *
+     * @param array $attributes
      */
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
 
         $this->setTable(
-            config('taxonomy.tables.term_relationships', $this->table ?? 'term_relationships')
+            config('taxonomy.tables.'.__CLASS__, $this->table ?? 'term_relationships')
         );
-    }
-
-    /**
-     * Relationship taxonomy.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function taxonomy()
-    {
-        return $this->belongsTo(Taxonomy::class);
     }
 
     /**
