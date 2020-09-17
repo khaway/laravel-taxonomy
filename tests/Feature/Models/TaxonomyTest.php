@@ -2,14 +2,14 @@
 
 namespace Scrapify\LaravelTaxonomy\Tests\Feature\Models;
 
-use Scrapify\LaravelTaxonomy\{Models\Taxonomies\Taxonomy,
+use Scrapify\LaravelTaxonomy\{
     Models\Term,
     Tests\TestCase,
     Tests\Support\TestModel,
     Tests\Support\TestServiceType,
     Tests\Support\TestSomeCategory,
-    Tests\Support\TestProductCategory};
-use Illuminate\Support\Str;
+    Tests\Support\TestProductCategory
+};
 
 /**
  * Class TaxonomyTest
@@ -18,7 +18,7 @@ use Illuminate\Support\Str;
  */
 class TaxonomyTest extends TestCase
 {
-    public function test_it_creates_and_associates_a_term_on_creating_events()
+    public function test_it_creates_and_associates_a_term_on_creating_events(): void
     {
         $name = 'Test name...';
 
@@ -29,7 +29,7 @@ class TaxonomyTest extends TestCase
         $this->assertNotNull(Term::whereName($name)->first());
     }
 
-    public function test_it_can_retrieve_all_related_entities()
+    public function test_it_can_retrieve_all_related_entities(): void
     {
         $newTaxonomy = TestProductCategory::create([
             'name' => 'Test name...'
@@ -44,7 +44,7 @@ class TaxonomyTest extends TestCase
         $this->assertEquals(1, $newTaxonomy->entities(TestModel::class)->count());
     }
 
-    public function test_it_can_retrieve_single_related_entity()
+    public function test_it_can_retrieve_single_related_entity(): void
     {
         $newTaxonomy = TestProductCategory::create([
             'name' => 'Test name...'
@@ -57,7 +57,7 @@ class TaxonomyTest extends TestCase
         $this->assertEquals($entity->id, $newTaxonomy->entities(TestModel::class)->first()->id);
     }
 
-    public function test_it_scopes_by_taxonomy_name_if_it_is_set()
+    public function test_it_scopes_by_taxonomy_name_if_it_is_set(): void
     {
         $productCategoryName = 'Test product category...';
 
@@ -75,7 +75,7 @@ class TaxonomyTest extends TestCase
         $this->assertEquals($serviceTypeName, TestServiceType::first()->name);
     }
 
-    public function test_it_can_have_children_taxonomies_with_different_taxonomy_type()
+    public function test_it_can_have_children_taxonomies_with_different_taxonomy_type(): void
     {
         $serviceType = TestServiceType::create([
             'name' => 'inherited'
@@ -88,7 +88,7 @@ class TaxonomyTest extends TestCase
         $this->assertEquals(0, $serviceType->children(TestSomeCategory::class)->count());
     }
 
-    public function test_it_can_have_parent_taxonomies_with_different_taxonomy_type()
+    public function test_it_can_have_parent_taxonomies_with_different_taxonomy_type(): void
     {
         $parentServiceType = TestProductCategory::create([
             'name' => 'parent'

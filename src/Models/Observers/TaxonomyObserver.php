@@ -2,7 +2,13 @@
 
 namespace Scrapify\LaravelTaxonomy\Models\Observers;
 
-use Scrapify\LaravelTaxonomy\Models\{Term, Taxonomies\Taxonomy};
+use Illuminate\Support\Arr;
+use Illuminate\Config\Repository;
+use Illuminate\Foundation\Application;
+use Scrapify\LaravelTaxonomy\Models\{
+    Term,
+    Taxonomies\Taxonomy
+};
 
 /**
  * Class TaxonomyObserver
@@ -11,28 +17,54 @@ use Scrapify\LaravelTaxonomy\Models\{Term, Taxonomies\Taxonomy};
  */
 class TaxonomyObserver
 {
+    /**
+     * @var \Illuminate\Foundation\Application
+     */
+    protected Application $app;
+
+    /**
+     * @var \Illuminate\Config\Repository
+     */
+    protected Repository $config;
+
+    /**
+     * TaxonomyObserver constructor.
+     *
+     * @param \Illuminate\Foundation\Application $app
+     * @param \Illuminate\Config\Repository $config
+     */
+    public function __construct(Application $app, Repository $config)
+    {
+        $this->app = $app;
+        $this->config = $config;
+    }
+
 	/**
      * Listen to the Taxonomy creating event.
      *
      * @param  Taxonomy  $taxonomy
      * @return void
      */
-	public function creating(Taxonomy $taxonomy)
-	{
+	public function creating(Taxonomy $taxonomy): void
+    {
+        $termAttributes = array_filter($taxonomy->getTermFillableAttributes());
+
 	    // If name attribute is set, try to
         // create or find and associate a term with taxonomy.
-	    if ($taxonomy->name) {
-            $term = ['name' => $taxonomy->name];
+	    if ($termName = Arr::get($termAttributes, 'name')) {
+            $term = Term::query()
+                ->whereName($termName, $this->app->getLocale())
+                ->firstOr(static function () use ($termAttributes) {
+                    return Term::create($termAttributes);
+                });
 
-            if ($taxonomy->slug) {
-                $term['slug'] = $taxonomy->slug;
-            }
-
-            $taxonomy->term()->associate(Term::firstOrCreate($term));
+            $taxonomy->term()->associate($term);
         }
 
         // Be sure that unnecessary attributes
         // will not be passed to query.
-        unset($taxonomy->name, $taxonomy->slug);
+	    foreach (array_keys($termAttributes) as $key) {
+	        unset($taxonomy->{$key});
+        }
 	}
 }

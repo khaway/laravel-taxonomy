@@ -1,4 +1,6 @@
-## Laravel taxonomy package
+## Laravel Taxonomy.
+
+Inspired by power of WordPress taxonomies, for Laravel Artisans.
 
 ```php
 <?php

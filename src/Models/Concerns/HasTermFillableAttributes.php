@@ -23,6 +23,14 @@ trait HasTermFillableAttributes
     }
 
     /**
+     * @return mixed
+     */
+    public function getTermFillableAttributes()
+    {
+        return $this->only($this->getTermFillable());
+    }
+
+    /**
      * Boot the metable trait on the model.
      *
      * @return HasTermFillableAttributes

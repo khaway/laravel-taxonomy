@@ -3,9 +3,12 @@
 namespace Scrapify\LaravelTaxonomy\Models;
 
 use Illuminate\Support\Str;
-use Scrapify\LaravelTaxonomy\Models\Concerns\HasMeta;
-use Scrapify\LaravelTaxonomy\Models\Taxonomies\Taxonomy;
-use Scrapify\LaravelTaxonomy\Models\Observers\TermObserver;
+use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Builder;
+use Scrapify\LaravelTaxonomy\Models\{Concerns\HasMeta,
+    Observers\TermObserver,
+    Concerns\HasTaxonomies,
+    Scopes\TermScope};
 
 /**
  * Class Term
@@ -14,7 +17,12 @@ use Scrapify\LaravelTaxonomy\Models\Observers\TermObserver;
  */
 class Term extends Model
 {
-    use HasMeta;
+    use HasMeta, HasTaxonomies, HasTranslations;
+
+    /**
+     * @var string[]
+     */
+    public $translatable = ['name'];
 
     /**
      * @var string
@@ -38,6 +46,7 @@ class Term extends Model
     {
         parent::boot();
 
+        static::addGlobalScope(new TermScope);
         static::observe(TermObserver::class);
     }
 
@@ -47,17 +56,8 @@ class Term extends Model
      * @param  string  $value
      * @return void
      */
-    public function setSlugAttribute($value)
+    public function setSlugAttribute($value): void
     {
         $this->attributes['slug'] = Str::slug($value);
-    }
-
-    /**
-     * @param null $related
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function taxonomies($related = null)
-    {
-        return $this->hasMany($related ?? Taxonomy::class);
     }
 }

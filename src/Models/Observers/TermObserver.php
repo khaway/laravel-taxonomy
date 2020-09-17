@@ -17,8 +17,8 @@ class TermObserver
      * @param  Term  $term
      * @return void
      */
-	public function creating(Term $term)
-	{
+	public function creating(Term $term): void
+    {
 	    // If term slug not set, convert name to slug
         // using "setSlugAttribute" mutator.
         if (! $term->slug) {

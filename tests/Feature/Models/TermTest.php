@@ -21,15 +21,15 @@ class TermTest extends TestCase
         TestProductCategory::create([
             'name' => 'Some name...',
             'children' => [
-                ['name' => 'New term']
+                ['name' => $termName]
             ]
         ]);
 
-        TestServiceType::create([
+        $term = TestServiceType::create([
             'name' => $termName
-        ]);
+        ])->term;
 
-        $this->assertEquals(2, Term::whereName($termName)->first()->taxonomies()->count());
-        $this->assertEquals(1, Term::whereName($termName)->first()->taxonomies(TestServiceType::class)->count());
+        $this->assertEquals(2, $term->taxonomies()->count());
+        $this->assertEquals(1, $term->taxonomies(TestServiceType::class)->count());
     }
 }

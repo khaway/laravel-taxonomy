@@ -2,16 +2,14 @@
 
 namespace Scrapify\LaravelTaxonomy\Models\Scopes;
 
-use Illuminate\Database\Eloquent\{
-    Scope, Model, Builder
-};
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class TaxonomyScope
  *
  * @package Scrapify\LaravelTaxonomy\Models\Scopes
  */
-class TaxonomyScope implements Scope
+class TaxonomyScope extends Scope
 {
     /**
      * All of the extensions to be added to the builder.
@@ -21,39 +19,14 @@ class TaxonomyScope implements Scope
     protected $extensions = ['WhereType', 'WhereSlug', 'WhereName'];
 
     /**
-     * Apply the scope to a given Eloquent query builder.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @return void
-     */
-    public function apply(Builder $builder, Model $model)
-    {
-        //
-    }
-
-    /**
-     * Extend the query builder with the needed functions.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @return void
-     */
-    public function extend(Builder $builder)
-    {
-        foreach ($this->extensions as $extension) {
-            $this->{"add{$extension}"}($builder);
-        }
-    }
-
-    /**
      * Add the taxonomy extension to the builder.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $builder
      * @return void
      */
-    protected function addWhereType(Builder $builder)
+    protected function addWhereType(Builder $builder): void
     {
-        $builder->macro('whereType', function (Builder $builder, $taxonomy, $slug = null) {
+        $builder->macro('whereType', static function (Builder $builder, $taxonomy, $slug = null) {
             $builder->where('type', $taxonomy);
 
             if ($slug) {
@@ -70,15 +43,15 @@ class TaxonomyScope implements Scope
      * @param  \Illuminate\Database\Eloquent\Builder  $builder
      * @return void
      */
-    protected function addWhereSlug(Builder $builder)
+    protected function addWhereSlug(Builder $builder): void
     {
-        $builder->macro('whereSlug', function (Builder $builder, $slug) {
+        $builder->macro('whereSlug', static function (Builder $builder, $slug) {
             if (! is_array($slug)) {
                 $slug = func_get_args();
                 $slug = array_splice($slug, 1);
             }
 
-            return $builder->whereHas('term', function ($query) use ($slug) {
+            return $builder->whereHas('term', static function ($query) use ($slug) {
                 $query->whereIn('slug', $slug);
             });
         });
@@ -90,16 +63,16 @@ class TaxonomyScope implements Scope
      * @param  \Illuminate\Database\Eloquent\Builder  $builder
      * @return void
      */
-    protected function addWhereName(Builder $builder)
+    protected function addWhereName(Builder $builder): void
     {
-        $builder->macro('whereName', function (Builder $builder, $name) {
+        $builder->macro('whereName', static function (Builder $builder, $name, $lang = 'en') {
             if (! is_array($name)) {
                 $name = func_get_args();
                 $name = array_splice($name, 1);
             }
 
-            return $builder->whereHas('term', function ($query) use ($name) {
-                $query->whereIn('name', $name);
+            return $builder->whereHas('term', static function ($query) use ($name, $lang) {
+                $query->whereIn("name->{$lang}", $name);
             });
         });
     }
