@@ -48,12 +48,18 @@ class TaxonomyObserver
 	public function creating(Taxonomy $taxonomy): void
     {
         $termAttributes = array_filter($taxonomy->getTermFillableAttributes());
+        $currentLocale = $this->app->getLocale();
+        $termName = Arr::get($termAttributes, 'name');
+
+        if (is_array($termName)) {
+            $termName = Arr::get($termAttributes, "name.{$currentLocale}");
+        }
 
 	    // If name attribute is set, try to
         // create or find and associate a term with taxonomy.
-	    if ($termName = Arr::get($termAttributes, 'name')) {
+	    if ($termName) {
             $term = Term::query()
-                ->whereName($termName, $this->app->getLocale())
+                ->whereName($termName, $currentLocale)
                 ->firstOr(static function () use ($termAttributes) {
                     return Term::create($termAttributes);
                 });

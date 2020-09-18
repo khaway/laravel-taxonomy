@@ -42,6 +42,8 @@ trait HasTermFillableAttributes
             $this->getTermFillable()
         ));
 
+        $this->mergeCasts(['name' => 'array']);
+
         return $this;
     }
 
